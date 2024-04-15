@@ -1,12 +1,18 @@
 package com.example.ejercicioTrivia.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Entity
 @Table(name = "question")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,9 +29,5 @@ public class Question {
     private Integer answer;
     @Column(name = "explanation")
     private String explanation;
-
-    public Question(){}
-
-
 
 }

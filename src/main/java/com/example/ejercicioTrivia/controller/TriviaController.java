@@ -2,7 +2,6 @@ package com.example.ejercicioTrivia.controller;
 
 import com.example.ejercicioTrivia.entities.Category;
 import com.example.ejercicioTrivia.entities.Question;
-import com.example.ejercicioTrivia.repository.CategoryRepositoryEjem;
 import com.example.ejercicioTrivia.service.QuestionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,9 +21,6 @@ import java.util.Map;
 public class TriviaController {
 
     @Autowired
-    private CategoryRepositoryEjem categoryRepository;
-
-    @Autowired
     private QuestionService questionService;
 
     @GetMapping("/question/{category}")
@@ -33,8 +29,7 @@ public class TriviaController {
         if (question != null) {
             ObjectMapper mapper = new ObjectMapper();
             String[] optionsArray = mapper.readValue(question.getOptions(), String[].class);
-            System.out.println("opciones: " + optionsArray);
-            // Construir el objeto JSON esperado por el frontend
+
             Map<String, Object> response = new HashMap<>();
             response.put("category", question.getCategory().getName());
             response.put("question", question.getQuestion());
@@ -44,7 +39,7 @@ public class TriviaController {
 
             return ResponseEntity.ok(response);
         } else {
-            // Manejar el caso en que no se encuentre una pregunta para la categoría especificada
+
             return ResponseEntity.notFound().build();
         }
     }
